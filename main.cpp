@@ -12,9 +12,12 @@
 using namespace std;
 
 class Peer {
+
+  
 public:
-    Peer(const string& file_name, int num_peers);
-    void startDownload();
+   Peer(const string& file_name, int num_peers);
+    void startDownload(); // Function declaration inside the class
+
 
 private:
     void downloadFromPeer(int peer_id);
@@ -88,6 +91,10 @@ void Peer::startDownload() {
 
     cout << "Download completed!" << endl;
 }
+void startDownload(const std::string& file_name, int num_peers) {
+    Peer peer(file_name, num_peers);
+    peer.startDownload();
+}
 
 int main(int argc, char* argv[]) {
     int num_peers = 1; // Default number of peers
@@ -95,17 +102,9 @@ int main(int argc, char* argv[]) {
 
     int option;
     const char* const short_opts = "hn:f:";
-    const option long_opts[] = {
-        {"help", no_argument, nullptr, 'h'},
-        {"num-peers", required_argument, nullptr, 'n'},
-        {"file", required_argument, nullptr, 'f'},
-        {nullptr, 0, nullptr, 0}
-    };
-
-    while ((option = getopt_long(argc, argv, short_opts, long_opts, nullptr)) != -1) {
+    while ((option = getopt(argc, argv, short_opts)) != -1) {
         switch (option) {
             case 'h':
-                // Display help and usage information
                 cout << "Usage: " << argv[0] << " [OPTIONS]\n"
                      << "Options:\n"
                      << "  -h, --help                Display this help message and exit.\n"
@@ -120,7 +119,7 @@ int main(int argc, char* argv[]) {
                 break;
             case '?':
             default:
-                cerr << "Unknown option or missing argument. Use --help for usage information.\n";
+                cerr << "Unknown option or missing argument. Use -h for usage information.\n";
                 return 1;
         }
     }
