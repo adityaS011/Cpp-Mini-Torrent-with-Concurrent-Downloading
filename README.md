@@ -23,4 +23,8 @@ This is a simple P2P (peer-to-peer) file sharing application that supports concu
 
 ## Code Example
 ```cpp
-// Your main.cpp code example here
+// To complie use the folowing code:
+g++ -o mini_torrent main.cpp -pthread
+// The you can run the program with different options to test the concurrent downloading functionality.
+For example: ./mini_torrent -n 5 -f myfile.txt
+
